@@ -1,0 +1,53 @@
+version: '3.1'
+
+services:
+  ##Db-контейнеры
+  database:
+    container_name: database
+    image: mysql:5.7
+    volumes:
+      - "./.data/db:/var/lib/mysql"
+    restart: always
+    env_file: ".env"
+
+
+  ##Backend-контейнеры
+  backend-nginx:
+    container_name: backend-nginx
+    build:
+      context: docker/backend
+      dockerfile: nginx.docker
+    volumes:
+      - ./:/var/www/application
+      - ./docker/backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/backend/nginx/logs:/var/log/nginx
+    ports:
+      - "8091:80"
+    depends_on:
+      - backend-php-fpm
+
+  backend-php-fpm:
+    container_name: backend-php-fpm
+    build:
+      context: docker/backend
+      dockerfile: php-fpm.docker
+    environment:
+      XDEBUG_CONFIG: "remote_host=172.17.0.1"
+      # for macOS IP 10.254.254.254
+      DOCKER_HOST: "tcp://localhost:4243"
+      PHP_IDE_CONFIG: "serverName=docker"
+    volumes:
+      - ./:/var/www/application
+    depends_on:
+      - database
+    working_dir: /var/www/application
+
+  ## Вспомогательные сервисы
+  phpmyadmin:
+    container_name: pma
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - database
+    env_file: ".env"
+    ports:
+      - "8092:80"

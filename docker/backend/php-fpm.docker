@@ -1,0 +1,33 @@
+FROM php:7.2-fpm
+
+WORKDIR /var/www/application
+
+RUN apt-get update
+
+RUN docker-php-ext-install json
+RUN docker-php-ext-enable json
+
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-enable pdo
+
+RUN apt-get install -y libpq-dev
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-enable pdo_mysql
+
+RUN docker-php-ext-install pdo_mysql
+
+RUN ln -sf /dev/stdout /var/log/fpm-access.log && \
+    ln -sf /dev/stderr /var/log/fpm-php.www.log
+
+RUN apt-get install -y git
+RUN apt-get update && apt-get install -y zlib1g-dev \
+    && docker-php-ext-install zip
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN pecl install xdebug-2.6.0 \ && docker-php-ext-enable xdebug
+
+RUN usermod -u 1000 www-data
+RUN apt-get install -y supervisor
+
+WORKDIR /var/www/application
