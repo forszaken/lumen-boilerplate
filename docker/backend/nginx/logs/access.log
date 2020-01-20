@@ -864,3 +864,8 @@
 172.18.0.1 - - [20/Jan/2020:08:11:22 +0000] "GET /api/users HTTP/1.1" 200 188 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" "-"
 172.18.0.1 - - [20/Jan/2020:08:14:52 +0000] "GET /api/users HTTP/1.1" 200 188 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" "-"
 172.18.0.1 - - [20/Jan/2020:08:14:54 +0000] "GET /api/users HTTP/1.1" 200 188 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" "-"
+172.18.0.1 - - [20/Jan/2020:08:28:59 +0000] "GET /api/users/1 HTTP/1.1" 200 186 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" "-"
+172.18.0.1 - - [20/Jan/2020:08:29:44 +0000] "GET /api/users HTTP/1.1" 200 188 "-" "insomnia/7.0.6" "-"
+172.18.0.1 - - [20/Jan/2020:08:30:02 +0000] "PUT /api/users/1 HTTP/1.1" 422 139 "-" "insomnia/7.0.6" "-"
+172.18.0.1 - - [20/Jan/2020:08:39:58 +0000] "PUT /api/users/1 HTTP/1.1" 422 139 "-" "insomnia/7.0.6" "-"
+172.18.0.1 - - [20/Jan/2020:08:40:03 +0000] "GET /api/users HTTP/1.1" 200 321 "-" "insomnia/7.0.6" "-"
