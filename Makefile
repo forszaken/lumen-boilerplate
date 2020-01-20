@@ -9,3 +9,5 @@ test:
 
 bash:
 	docker-compose exec backend-php-fpm bash
+ci:
+	docker-compose exec backend-php-fpm composer install
