@@ -20,6 +20,11 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'location' => 'required|alpha'
+        ]);
         $user = User::create($request->all());
 
         return response()->json($user, 201);
