@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $author = User::create($request->all());
+        $user = User::create($request->all());
 
         return response()->json($user, 201);
     }
