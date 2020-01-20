@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "auth0/auth0-php": "~5.0",
         "laravel/lumen-framework": "^6.0"
     },
     "require-dev": {
