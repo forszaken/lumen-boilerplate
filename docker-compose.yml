@@ -9,6 +9,11 @@ services:
       - "./.data/db:/var/lib/mysql"
     restart: always
     env_file: ".env"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lumen
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
 
 
   ##Backend-контейнеры
@@ -51,3 +56,6 @@ services:
     env_file: ".env"
     ports:
       - "8092:80"
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: root
