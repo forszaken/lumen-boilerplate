@@ -57,7 +57,7 @@ services:
       - "8090:80"
 
   frontend-nodejs:
-    container_name: clientbank-frontend-node
+    container_name: frontend-node
     image: node:8.11.3-jessie
     volumes:
       - "./frontend:/var/www/application/frontend"

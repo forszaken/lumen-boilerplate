@@ -20,5 +20,5 @@ frontend-install:
 frontend-build:
 	docker-compose exec frontend-nodejs npm run build
 
-frontend-watch:
-	docker-compose exec frontend-nodejs npm run watch
+frontend-start:
+	docker-compose exec frontend-nodejs npm run start
