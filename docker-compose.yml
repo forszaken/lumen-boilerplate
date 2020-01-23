@@ -8,12 +8,7 @@ services:
     volumes:
       - "./.data/db:/var/lib/mysql"
     restart: always
-    env_file: ".env"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: lumen
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+    env_file: "./backend-api/.env"
 
 
   ##Backend-контейнеры
@@ -23,7 +18,7 @@ services:
       context: docker/backend
       dockerfile: nginx.docker
     volumes:
-      - ./:/var/www/application
+      - ./backend-api/:/var/www/application/backend-api
       - ./docker/backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
 
     ports:
@@ -42,10 +37,32 @@ services:
       DOCKER_HOST: "tcp://localhost:4243"
       PHP_IDE_CONFIG: "serverName=docker"
     volumes:
-      - ./:/var/www/application
+      - ./backend-api/:/var/www/application/backend-api
     depends_on:
       - database
-    working_dir: /var/www/application
+    working_dir: /var/www/application/backend-api
+
+  ##Frontend-контейнеры
+  frontend-nginx:
+    container_name: frontend-nginx
+    build:
+      context: ./docker/frontend
+      dockerfile: nginx.docker
+    volumes:
+      - ./frontend:/var/www/application/frontend
+      - ./docker/frontend/ngnix/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend-php-fpm
+    ports:
+      - "8090:80"
+
+  frontend-nodejs:
+    container_name: clientbank-frontend-node
+    image: node:8.11.3-jessie
+    volumes:
+      - "./frontend:/var/www/application/frontend"
+    working_dir: /var/www/application/frontend
+    tty: true
 
   ## Вспомогательные сервисы
   phpmyadmin:
@@ -53,7 +70,7 @@ services:
     image: phpmyadmin/phpmyadmin
     depends_on:
       - database
-    env_file: ".env"
+    env_file: "./backend-api/.env"
     ports:
       - "8092:80"
     environment:
