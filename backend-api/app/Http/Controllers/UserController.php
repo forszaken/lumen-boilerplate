@@ -8,17 +8,17 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function showAllUsers(): string
+    public function showAllUsers()
     {
         return response()->json(User::all());
     }
 
-    public function showOneUser($id): string
+    public function showOneUser($id)
     {
         return response()->json(User::find($id));
     }
 
-    public function create(Request $request): string
+    public function create(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -30,7 +30,7 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-    public function update($id, Request $request): string
+    public function update($id, Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -43,7 +43,7 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
-    public function delete($id): string
+    public function delete($id)
     {
         User::findOrFail($id)->delete();
         return response('Deleted Successfully', 200);

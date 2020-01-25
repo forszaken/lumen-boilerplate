@@ -42,6 +42,19 @@ services:
       - database
     working_dir: /var/www/application/backend-api
 
+  ## Вспомогательные сервисы
+  phpmyadmin:
+    container_name: pma
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - database
+    env_file: "./backend-api/.env"
+    ports:
+      - "8092:80"
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: root
+
   ##Frontend-контейнеры
   frontend-nginx:
     container_name: frontend-nginx
@@ -63,16 +76,3 @@ services:
       - "./frontend:/var/www/application/frontend"
     working_dir: /var/www/application/frontend
     tty: true
-
-  ## Вспомогательные сервисы
-  phpmyadmin:
-    container_name: pma
-    image: phpmyadmin/phpmyadmin
-    depends_on:
-      - database
-    env_file: "./backend-api/.env"
-    ports:
-      - "8092:80"
-    environment:
-      PMA_HOST: database
-      MYSQL_ROOT_PASSWORD: root
