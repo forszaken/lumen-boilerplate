@@ -17,10 +17,10 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return string
      */
-    public function showOneUser($id): string
+    public function showOneUser(int $id): string
     {
         return response()->json(User::find($id));
     }
@@ -42,11 +42,11 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @param Request $request
      * @return string
      */
-    public function update($id, Request $request): string
+    public function update(int $id, Request $request): string
     {
         $this->validate($request, [
             'name' => 'required',
@@ -59,11 +59,12 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
+
     /**
-     * @param $id
+     * @param int $id
      * @return string
      */
-    public function delete($id): string
+    public function delete(int $id): string
     {
         User::findOrFail($id)->delete();
         return response('Deleted Successfully', 200);
